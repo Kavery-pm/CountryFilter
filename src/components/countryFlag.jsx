@@ -27,12 +27,13 @@ const CountryFlag = () => {
   };
   const filterAndSearchCountries = (countryData) => {
     return countryData.filter((item) => {
-      if (selectedRegion === 'All') {
-        return item.name.common.toLowerCase().includes(query.toLowerCase())
+      if (selectedRegion === 'All' && item.capital !== undefined) {
+        console.log( item.capital[0])
+        return item.name.common.toLowerCase().includes(query.toLowerCase()) || item.capital[0].toLowerCase().includes(query.toLowerCase())
       }
-      if(selectedRegion !== 'All'){
+      if(selectedRegion !== 'All' && item.capital !== undefined){
        if(item.region === selectedRegion){
-        return item.name.common.toLowerCase().includes(query.toLowerCase())
+        return item.name.common.toLowerCase().includes(query.toLowerCase() || item.capital[0].toLowerCase().includes(query.toLowerCase()))
        }
       }
     });
