@@ -3,6 +3,7 @@ import "../../src/style.css";
 
 const CountryFlag = () => {
   const [countryDetails, setcountryDetails] = useState([]);
+  const [selectedRegion, setselectedRegion] = useState("All");
   useEffect(() => {
     fetchCountryData();
   }, []);
@@ -19,10 +20,26 @@ const CountryFlag = () => {
         }
       );
   };
+  const filterRegionHandler = (event) => {
+    console.log(event.target.value);
+    setselectedRegion(event.target.value);
+  };
+  const filterAndSearchCountries = (countryData) => {
+    return countryData.filter((item) => {
+      if (selectedRegion === 'All') {
+        return item;
+      }
+      if(selectedRegion !== 'All'){
+       if(item.region === selectedRegion){
+        return item;
+       }
+      }
+    });
+  };
   return (
     <>
       <div className="wrapper">
-      <div className="search-wrapper">
+        <div className="search-wrapper">
           <label htmlFor="search-form">
             <input
               type="search"
@@ -30,16 +47,15 @@ const CountryFlag = () => {
               id="search-form"
               className="search-input"
               placeholder="Search for..."
-              
-              
             />
             <span className="sr-only">Search Country</span>
           </label>
           <div className="select">
             <select
-           
+              value={selectedRegion}
               className="custom-select"
               aria-label="Filter Countries By Countries"
+              onChange={filterRegionHandler}
             >
               <option value="All">Filter By Region</option>
               <option value="Africa">Africa</option>
@@ -52,7 +68,7 @@ const CountryFlag = () => {
           </div>
         </div>
         <ul className="card-grid">
-          {countryDetails.map((countryItem) => (
+          {filterAndSearchCountries(countryDetails).map((countryItem) => (
             <li>
               <article className="card">
                 <div className="card-image">
