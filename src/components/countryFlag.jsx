@@ -1,22 +1,41 @@
+import { useEffect, useState } from "react";
 import "../../src/style.css";
 import { DATA } from "../models/countryData";
 const CountryFlag = () => {
+    const [countryDetails, setcountryDetails] = useState([]);
+useEffect(() => {
+ fetchCountryData();
+}, [])
+const fetchCountryData = async()=>{
+    fetch('https://restcountries.com/v3.1/all')
+    .then((res) => res.json())
+    .then(
+      (result) => {
+        console.log(result)
+       setcountryDetails(result)
+       
+      },
+      (error) => {
+        console.log(error)
+      }
+    );
+}
   return (
     <>
         <div className="wrapper">
         <ul className="card-grid">
-        {DATA.map(countryItem=>(
+        {countryDetails.map(countryItem=>(
             <li >
               <article className="card" >
                 <div className="card-image">
                    
-                  <img src='https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png' />
+                  <img src={countryItem.flags.png} alt={countryItem.name.common}/>
                 </div>
                 <div className="card-content">
-                  <h2 className="card-name">{countryItem.name}</h2>
+                  <h2 className="card-name">{countryItem.name.common}</h2>
                   <ol className="card-list">
                     <li>
-                      population: <span>10000</span>
+                      population: <span>{countryItem.name.population}</span>
                     </li>
                     <li>
                       Region: <span>{countryItem.region}</span>
