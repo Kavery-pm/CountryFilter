@@ -4,6 +4,7 @@ import "../../src/style.css";
 const CountryFlag = () => {
   const [countryDetails, setcountryDetails] = useState([]);
   const [selectedRegion, setselectedRegion] = useState("All");
+  const [query, setquery] = useState('');
   useEffect(() => {
     fetchCountryData();
   }, []);
@@ -27,7 +28,7 @@ const CountryFlag = () => {
   const filterAndSearchCountries = (countryData) => {
     return countryData.filter((item) => {
       if (selectedRegion === 'All') {
-        return item;
+        return item.name.common.toLowerCase().includes(query.toLowerCase())
       }
       if(selectedRegion !== 'All'){
        if(item.region === selectedRegion){
@@ -42,11 +43,13 @@ const CountryFlag = () => {
         <div className="search-wrapper">
           <label htmlFor="search-form">
             <input
+            value={query}
               type="search"
               name="search-form"
               id="search-form"
               className="search-input"
               placeholder="Search for..."
+              onChange={(event)=>setquery(event.target.value)}
             />
             <span className="sr-only">Search Country</span>
           </label>
