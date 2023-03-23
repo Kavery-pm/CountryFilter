@@ -32,7 +32,7 @@ const CountryFlag = () => {
       }
       if(selectedRegion !== 'All'){
        if(item.region === selectedRegion){
-        return item;
+        return item.name.common.toLowerCase().includes(query.toLowerCase())
        }
       }
     });
