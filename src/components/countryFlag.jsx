@@ -13,7 +13,7 @@ const CountryFlag = () => {
       .then((res) => res.json())
       .then(
         (result) => {
-          console.log(result);
+        
           setcountryDetails(result);
         },
         (error) => {
@@ -22,18 +22,19 @@ const CountryFlag = () => {
       );
   };
   const filterRegionHandler = (event) => {
-    console.log(event.target.value);
+   
     setselectedRegion(event.target.value);
   };
   const filterAndSearchCountries = (countryData) => {
     return countryData.filter((item) => {
       if (selectedRegion === 'All' && item.capital !== undefined) {
-        console.log( item.capital[0])
+     
         return item.name.common.toLowerCase().includes(query.toLowerCase()) || item.capital[0].toLowerCase().includes(query.toLowerCase())
       }
       if(selectedRegion !== 'All' && item.capital !== undefined){
        if(item.region === selectedRegion){
-        return item.name.common.toLowerCase().includes(query.toLowerCase() || item.capital[0].toLowerCase().includes(query.toLowerCase()))
+      
+        return item.name.common.toLowerCase().includes(query.toLowerCase()) || item.capital[0].toLowerCase().includes(query.toLowerCase())
        }
       }
     });
