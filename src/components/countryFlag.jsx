@@ -86,7 +86,7 @@ const CountryFlag = () => {
                   <h2 className="card-name">{countryItem.name.common}</h2>
                   <ol className="card-list">
                     <li>
-                      population: <span>{countryItem.name.population}</span>
+                      population: <span>{countryItem.population}</span>
                     </li>
                     <li>
                       Region: <span>{countryItem.region}</span>
